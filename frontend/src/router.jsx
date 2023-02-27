@@ -1,56 +1,55 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
-import DefaultLayout from './components/DefaultLayout';
-import Guestlayout from './components/Guestlayout';
+import { createBrowserRouter } from 'react-router-dom'
 import Dashboard from './views/Dashboard';
-import Home from './views/home';
+import Home from './views/Home';
 import Login from "./views/login";
 import NotFound from "./views/NotFound";
 import Register from "./views/register";
 import Users from "./views/users";
+import Gallery from './views/Gallery';
+import BOOK_dach from './views/BOOK_dach';
+
 
 const router = createBrowserRouter([
-
     {
         path: '/',
-        element: <DefaultLayout />,
-        children: [
-            {
-                path: '/',
-                element: <Navigate to={'/users'} />
-            },
-            {
-                path: '/Dashboard',
-                element: <Dashboard />
-            },
-            {
-                path: '/users',
-                element: <Users />
-            },
-        ]
+        element: <Home />
     },
     {
-        path: '/',
-        element: <Guestlayout />,
-        children: [
-            {
-                path: '/register',
-                element: <Register />
-            },
-            {
-                path: '/login',
-                element: <Login />
-            },
-            {
-                path: '/home',
-                element: <Home />
-            },
-        ]
+        path: '/Dashboard',
+        element: <Dashboard />
+    },
+    {
+        path: '/users',
+        element: <Users />
     },
 
     {
-        path: '*',  
+        path: '/register',
+        element: <Register />
+    },
+    {
+        path: '/login',
+        element: <Login />
+    },
+    {
+        path: '/home',
+        element: <Home />
+    },
+
+    
+    {
+        path: '/gallery',
+        element: <Gallery />
+    },
+
+    {
+        path: '*',
         element: <NotFound />
     },
-])
+    {
+        path: '/Dashboard/book_dach',
+        element: <BOOK_dach />
+    },
+]);
 
-export default router
+export default router 
