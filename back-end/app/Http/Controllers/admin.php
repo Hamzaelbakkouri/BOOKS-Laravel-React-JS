@@ -24,5 +24,4 @@ class admin extends Controller
       ->where('livres.isArchived','=',0)
       ->get();
     }
-    
 }

@@ -9,7 +9,8 @@ import Gallery from './views/Gallery';
 import BOOK_dach from './views/BOOK_dach';
 
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+    [
     {
         path: '/',
         element: <Home />
@@ -52,4 +53,4 @@ const router = createBrowserRouter([
     },
 ]);
 
-export default router 
+export default router

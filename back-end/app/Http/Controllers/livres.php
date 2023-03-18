@@ -13,7 +13,6 @@ use App\Models\Livre;
 class livres extends Controller
 {
     public function getsignature(){
-
         $cloudinaryConfig = new CloudConfig([
             "cloud_name" => "dxn7gskyn",
             "api_key" => "296547854239657",
@@ -25,7 +24,6 @@ class livres extends Controller
                 "timestamp" => time(),
                 "folder" => 'books'
             ];
-        
         $data = ['signature' => ApiUtils::signParameters($params, $cloudinaryConfig->apiSecret), 'timestamp' => $timestamp];
         return $data;
     }
@@ -50,5 +48,26 @@ class livres extends Controller
         $livre->isArchived=1;
         $livre->update();
         return 'deleted';
+    }
+
+    function getlivre($id){
+        $livre=Livre::find($id);
+        return $livre;
+    }
+
+    public function updateLivre(Request $request){
+        $livre =Livre::find($request->id);
+        $livre->nom=$request->nom;
+        if($request->image!=null){
+            $livre->image=$request->image;
+        }
+        if($request->file!=null){
+            $livre->pdf=$request->file;
+        }
+        if($request->id_cat!=null){
+            $livre->id_cat=$request->id_cat;
+        }
+        $livre->update();
+        return 'updated';
     }
 }

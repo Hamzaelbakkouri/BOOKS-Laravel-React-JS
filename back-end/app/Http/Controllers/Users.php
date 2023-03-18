@@ -7,6 +7,7 @@ use App\Models\Favorie;
 use App\Models\Group;
 use App\Models\Livre;
 use App\Models\Membre;
+use App\Models\Reaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +37,7 @@ class Users extends Controller
         ]);
         if($validator->fails()){
             $response=[
-                'success'=>'register failed',
+                'success'=>'fail',
                 'message'=>$validator->errors()
             ];
             return $response;
@@ -47,9 +48,9 @@ class Users extends Controller
             $user->prenom=$request->input('prenom');
             $user->email=$request->input('email');
             $user->password=$request->input('password');
-            $user->role = 0;
+            $user->role=0;
             $user->save();
-            return 'new user added';
+            return 'inserted';
         }
     }
 
@@ -57,7 +58,7 @@ class Users extends Controller
     {
        $user=User::find($request->id);
        $user->delete();
-       return 'user deleted';
+       return 'deleted';
     }
 
     public function modifierCompte(Request $request,$id)
@@ -109,20 +110,11 @@ class Users extends Controller
     
     public function rejoindreGroup(Request $request)
     {
-        $count=Membre::select('id_group','id_user')
-        ->where('id_group','=', $request->id_group)
-        ->where('id_user','=', $request->id_user)
-        ->count();
-        if($count==0){
-            $membre=new Membre();
-            $membre->id_group=$request->id_group;
-            $membre->id_user=$request->id_user;
-            $membre->save();
-            return 'added';
-        }
-        else{
-           return "deja";
-        }
+        $membre=new Membre();
+        $membre->id_group=$request->id_group;
+        $membre->id_user=$request->id_user;
+        $membre->save();
+        return 'added';
     }
 
 
@@ -165,6 +157,66 @@ class Users extends Controller
         ->join('categories', 'livres.id_cat','=','categories.id')
         ->where('livres.isArchived','=',0)
         ->where('livres.nom','like',$nom)
+        ->get();
+    }
+
+    public function getLivres($id)
+    {
+        return DB::table('livres')
+        ->leftJoin('reactions', function ($join) use($id) {
+            $join->on('livres.id', '=', 'reactions.id_livre')
+                ->where('reactions.id_user', '=', $id);
+        })
+        ->select('livres.id as idlivre','livres.nom AS nom_livre','livres.image','livres.pdf', 'livres.created_at','categories.nom AS nom_cat', 'reactions.*')
+        ->join('categories','livres.id_cat','=','categories.id')
+        ->orderBy('livres.id', 'asc')
+        ->get();
+    }
+
+    public function like(Request $request){
+        $reaction=Reaction::
+        where('id_livre','=',$request->id_livre)
+        ->where('id_user','=',$request->id_user)
+        ->get();
+        if(count($reaction)==0){
+            $reaction=new Reaction();
+            $reaction->id_user=$request->id_user;
+            $reaction->id_livre=$request->id_livre;
+            $reaction->reaction=1;
+            $reaction->note=0;
+            $reaction->save();
+        }
+        else{
+            Reaction::where('id_livre','=',$request->id_livre)->where('id_user','=',$request->id_user)->update(['reaction'=>1]);
+        }
+    }
+    public function dislike(Request $request){
+        $reaction=Reaction::
+        where('id_livre','=',$request->id_livre)
+        ->where('id_user','=',$request->id_user)
+        ->get();
+        if(count($reaction)==0){
+            $reaction=new Reaction();
+            $reaction->id_user=$request->id_user;
+            $reaction->id_livre=$request->id_livre;
+            $reaction->reaction=-1;
+            $reaction->note=0;
+            $reaction->save();
+        }
+        else{
+            Reaction::where('id_livre','=',$request->id_livre)->where('id_user','=',$request->id_user)->update(['reaction'=>-1]);
+        }
+
+    }
+
+    public function getGroups($id){
+        return DB::table('groups')
+        ->leftJoin('membres', function ($join) use($id) {
+            $join->on('groups.id', '=', 'membres.id_group')
+                ->where('membres.id_user', '=', $id);
+        })
+        ->select('groups.id','groups.nom','groups.description','groups.created_at','users.nom as nom_user','membres.id as id_membre')
+        ->join('users','users.id','=','groups.id_user')
         ->get();
     }
     
