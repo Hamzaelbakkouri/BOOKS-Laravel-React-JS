@@ -7,6 +7,8 @@ import {RouterProvider} from 'react-router-dom'
 import Navbar from './components/Navbar';
 import router from './router';
 import Footer from './components/Footer';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,7 +18,6 @@ root.render(
     <div className='w-full h-screen bg-gray-900 text-white'> 
       <Navbar/>
       <RouterProvider router={router} />
-      {/* <Home/> */}
       <Footer/>
     </div>
   </React.StrictMode>

@@ -1,161 +1,246 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import { useState } from "react";
+import Cookies from "universal-cookie";
+import logo from '../assets/logo.png'
+import { MDBDropdown, MDBDropdownMenu, MDBDropdownToggle, MDBDropdownItem } from 'mdb-react-ui-kit';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'login'];
 
-function ResponsiveAppBar() {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+export default function NavBar() {
+  const [navbar, setNavbar] = useState(false);
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
+  const cookie = new Cookies();
+  const check = cookie.get('authorisation');
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+  const logout = () => {
+    cookie.remove('authorisation');
+  }
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
+  if (check) {
+    if (check.role != 0) {
+      return (
+        <nav className="w-full shadow-lg">
+          <div className=" justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8 pt-6">
+            <div >
+              <div className="flex items-center justify-between py-3 md:py-5 md:block">
+                <a className="" href="">
+                  <img className="w-10 h-10" src={logo} alt="" />
+                </a>
+                <div className="md:hidden">
+                  <button
+                    className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                    onClick={() => setNavbar(!navbar)}>
+                    {navbar ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4 6h16M4 12h16M4 18h16"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? "block" : "hidden"
+                  }`}
+              >
+                <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                  <li className="text-gray-600 hover:text-blue-600">
+                    <a href="/">Home</a>
+                  </li>
+                  <li className="text-gray-600 hover:text-blue-600">
+                    <a href="/gallery">Books</a>
+                  </li>
+                  <li className="text-gray-600 hover:text-blue-600">
+                    <a href="/groups">Join a group</a>
+                  </li>
+                  <li>
+                    <MDBDropdown>
+                      <MDBDropdownToggle>Profile <i class="fa-solid fa-user"></i></MDBDropdownToggle>
+                      <MDBDropdownMenu>
+                        <MDBDropdownItem href="/profile" link>Your Profile</MDBDropdownItem>
+                        <MDBDropdownItem href="/profile" link>Dashboard</MDBDropdownItem>
+                        <MDBDropdownItem href="/" onClick={logout} link>Logout</MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+      )
+    } else {
+      return (
+        <nav className="w-full shadow-lg">
+          <div className=" justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8 pt-6">
+            <div >
+              <div className="flex items-center justify-between py-3 md:py-5 md:block">
+                <a className="" href="">
+                  <img className="w-10 h-10" src={logo} alt="" />
+                </a>
+                <div className="md:hidden">
+                  <button
+                    className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                    onClick={() => setNavbar(!navbar)}>
+                    {navbar ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4 6h16M4 12h16M4 18h16"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? "block" : "hidden"
+                  }`}
+              >
+                <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                  <li className="text-gray-600 hover:text-blue-600">
+                    <a href="/">Home</a>
+                  </li>
+                  <li className="text-gray-600 hover:text-blue-600">
+                    <a href="/gallery">Books</a>
+                  </li>
+                  <li className="text-gray-600 hover:text-blue-600">
+                    <a href="/groups">Join a group</a>
+                  </li>
+                  <li>
+                    <MDBDropdown>
+                      <MDBDropdownToggle>Profile <i class="fa-solid fa-user"></i></MDBDropdownToggle>
+                      <MDBDropdownMenu>
+                        <MDBDropdownItem href="/profile" link>Your Profile</MDBDropdownItem>
+                        <MDBDropdownItem href="/" onClick={logout} link>Logout</MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+      );
+    }
+  } else {
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <img src="./assets/logo.png" alt="" />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'black',
-                            textDecoration: 'none',
-                        }}
+      <nav className="w-full shadow-lg">
+        <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+          <div>
+            <div className="flex items-center justify-between py-3 md:py-5 md:block">
+              <a href="javascript:void(0)">
+                <img className="w-14 h-14 flex justify-start" src={logo} alt="" />
+              </a>
+              <div className="md:hidden">
+                <button
+                  className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                  onClick={() => setNavbar(!navbar)}>
+                  {navbar ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
                     >
-                        <img className='h-10' src="https://parspng.com/wp-content/uploads/2022/11/bookpng.parspng.com-9.png" alt="" />
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href=""
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
+                      <path
+                        fillRule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
                     >
-                        LOGO
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
-                        ))}
-                    </Box>
-
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                </Toolbar>
-            </Container>
-        </AppBar>
-    );
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4 6h16M4 12h16M4 18h16"
+                      />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? "block" : "hidden"
+                }`}
+            >
+              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                <li className="text-gray-600 hover:text-blue-600">
+                  <a href="/">Home</a>
+                </li>
+                <li className="text-gray-600 hover:text-blue-600">
+                  <a href="/gallery">Books</a>
+                </li>
+                <li className="text-gray-600 hover:text-blue-600">
+                  <a href="/groups">Join a Group</a>
+                </li>
+                <li className="text-gray-600 hover:text-blue-600">
+                  <a href="/register">Register</a>
+                </li>
+                <li className="text-gray-600 hover:text-blue-600">
+                  <a href="/login">Login</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    )
+  }
 }
-export default ResponsiveAppBar;
