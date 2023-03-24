@@ -12,7 +12,6 @@ class groupes extends Controller
         return $groupes;
     }
     
-
     public function creerUngroupe(Request $request)
     {
         $groupe = new Group();

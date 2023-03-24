@@ -81,7 +81,7 @@ export default function NavBar() {
                       <MDBDropdownToggle>Profile <i class="fa-solid fa-user"></i></MDBDropdownToggle>
                       <MDBDropdownMenu>
                         <MDBDropdownItem href="/profile" link>Your Profile</MDBDropdownItem>
-                        <MDBDropdownItem href="/profile" link>Dashboard</MDBDropdownItem>
+                        <MDBDropdownItem href="/Dashboard" link>Dashboard</MDBDropdownItem>
                         <MDBDropdownItem href="/" onClick={logout} link>Logout</MDBDropdownItem>
                       </MDBDropdownMenu>
                     </MDBDropdown>

@@ -1,54 +1,53 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 
-// use Cloudinary\Api\ApiUtils;
-// use Cloudinary\Configuration\CloudConfig;
 use App\Models\Livre;
-
-// require_once '../../../vendor/autoload.php';
-
 
 class livres extends Controller
 {
 
     public function addLivre(Request $request)
     {
-        $livre =new Livre();
-        $livre->nom=$request->nom;
-        $livre->image=$request->image;
-        $livre->pdf=$request->file;
-        $livre->isArchived=0;
-        $livre->id_cat=$request->id_cat;
-        $livre->created_at=date("Y-m-d");
+        $livre = new Livre();
+        $livre->nom = $request->nom;
+        $livre->image = $request->image;
+        $livre->pdf = $request->file;
+        $livre->isArchived = 0;
+        $livre->id_cat = $request->id_cat;
+        $livre->created_at = date("Y-m-d");
         $livre->save();
         return 'added';
     }
 
-    function supprimerLivre(Livre $livre){
-        $livre->isArchived=1;
+    function supprimerLivre(Livre $livre)
+    {
+        $livre->isArchived = 1;
         $livre->update();
         return 'deleted';
     }
-    
 
-    function getlivre($id){
-        $livre=Livre::find($id);
+
+    function getlivre($id)
+    {
+        $livre = Livre::find($id);
         return $livre;
     }
 
-    public function updateLivre(Request $request){
-        $livre =Livre::find($request->id);
-        $livre->nom=$request->nom;
-        if($request->image!=null){
-            $livre->image=$request->image;
+    public function updateLivre(Request $request)
+    {
+        $livre = Livre::find($request->id);
+        $livre->nom = $request->nom;
+        if ($request->image != null) {
+            $livre->image = $request->image;
         }
-        if($request->file!=null){
-            $livre->pdf=$request->file;
+        if ($request->file != null) {
+            $livre->pdf = $request->file;
         }
-        if($request->id_cat!=null){
-            $livre->id_cat=$request->id_cat;
+        if ($request->id_cat != null) {
+            $livre->id_cat = $request->id_cat;
         }
         $livre->update();
         return 'updated';

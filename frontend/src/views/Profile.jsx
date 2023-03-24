@@ -10,6 +10,8 @@ import {
     MDBBtn,
 } from 'mdb-react-ui-kit';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
+
 
 const Profile = () => {
 
@@ -21,7 +23,26 @@ const Profile = () => {
         } else {
             setcheck('Admin');
         }
-    },[])
+    }, [])
+    // const [id, setId] = useState();
+
+    const Delete = (e) => {
+        e.preventDefault();
+        axios.delete('http://localhost:8000/api/user/supprimerCompte', {
+            params: {
+                id: get.id
+            }
+        })
+            .then((e) => {
+                cookie.remove('authorisation')
+                    window.location.href = "/"
+                
+            })
+    }
+
+    const update = (e) => {
+        e.preventDefault();
+    }
 
     const cookie = new Cookies();
     const get = cookie.get('authorisation');
@@ -43,7 +64,7 @@ const Profile = () => {
                                     className="rounded-circle"
                                     style={{ width: '150px' }}
                                     fluid />
-                                
+
                                 <p className="text-muted mb-1">{check}</p>
                                 <p className="text-muted mb-4">Morocco</p>
                             </MDBCardBody>
@@ -86,7 +107,8 @@ const Profile = () => {
                 </MDBRow>
             </MDBContainer>
             <div className="d-flex justify-content-center pb-6">
-                <MDBBtn outline className="ms-1 "><p className='mt-2 text-red-600'>Delete Profile</p></MDBBtn>
+                <MDBBtn onClick={Delete} outline className="ms-1 "><p className='mt-2 text-red-600'>Delete Profile</p></MDBBtn>
+                <MDBBtn onClick={update} outline className="ms-1 "><p className='mt-2 text-blue-600'>Update Profile</p></MDBBtn>
             </div>
         </section>
     );

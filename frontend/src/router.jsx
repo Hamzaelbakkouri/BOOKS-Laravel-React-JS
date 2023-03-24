@@ -9,6 +9,9 @@ import Gallery from './views/Gallery';
 import Profile from './views/Profile';
 import Groups from './views/Groups';
 import Books_D from './views/Books_D';
+import Chat from './views/Chat';
+import AddBook from './components/AddBook';
+import UpdateBook from './components/UpdateBook';
 
 
 const router = createBrowserRouter(
@@ -47,9 +50,22 @@ const router = createBrowserRouter(
             path: '/groups',
             element: <Groups />
         },
+
         {
             path: '/profile',
             element: <Profile />
+        },
+        {
+            path: '/chat',
+            element: <Chat />
+        },
+        {
+            path: '/addbook',
+            element: <AddBook />
+        },
+        {
+            path: '/updatebook',
+            element: <UpdateBook />
         },
 
         {

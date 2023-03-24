@@ -5,6 +5,8 @@ import {
 } from 'mdb-react-ui-kit';
 
 export default function App() {
+
+    
     return (
         <MDBCarousel showControls showIndicators light fade className='flex flex-col min-h-screen'>
             <MDBCarouselItem

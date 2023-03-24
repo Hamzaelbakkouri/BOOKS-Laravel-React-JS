@@ -24,7 +24,6 @@ const Register = () => {
 
         axios.post('http://localhost:8000/api/signup', data)
             .then((res) => {
-                console.log(res.data);
                 window.location.href = '/login'
             })
         // })
