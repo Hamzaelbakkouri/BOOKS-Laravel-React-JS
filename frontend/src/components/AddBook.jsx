@@ -36,9 +36,9 @@ const AddBook = () => {
 
     return (
         <div className='w-full flex justify-center'>
-            <form role="form" class=" w-96 text-center border border-light p-5" onSubmit={insert} enctype="multipart/form-data">
+            <form role="form" className=" w-96 text-center border border-light p-5" onSubmit={insert} enctype="multipart/form-data">
 
-                <p class="h4 mb-4">ADD Book</p>
+                <p className="h4 mb-4">ADD Book</p>
                 <label>Name</label>
                 <input onChange={(e) => setName(e.target.value)} type="text" id="defaultSubscriptionFormPassword" className="form-control mb-4" placeholder="name" />
                 <label>Categorie</label>

@@ -17,7 +17,7 @@ function Books_D() {
 
 
   const up = (prop) => {
-      setInfo(prop);
+    setInfo(prop);
     localStorage.setItem('info', info);
     const inf = localStorage.getItem('info');
     if (inf) {
@@ -101,7 +101,7 @@ function Books_D() {
                           Delete
                         </MDBBtn>
                         <MDBBtn onClick={() => {
-                            up(dat.id);
+                          up(dat.id);
                         }
                         } className='fw-bold' color='link' rounded size='sm' rippleColor='dark'>
                           Update

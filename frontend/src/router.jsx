@@ -12,6 +12,8 @@ import Books_D from './views/Books_D';
 import Chat from './views/Chat';
 import AddBook from './components/AddBook';
 import UpdateBook from './components/UpdateBook';
+import Create_G from './components/Create_G';
+import User_G from './views/User_G';
 
 
 const router = createBrowserRouter(
@@ -50,6 +52,10 @@ const router = createBrowserRouter(
             path: '/groups',
             element: <Groups />
         },
+        {
+            path: '/usergroups',
+            element: <User_G />
+        },
 
         {
             path: '/profile',
@@ -62,6 +68,10 @@ const router = createBrowserRouter(
         {
             path: '/addbook',
             element: <AddBook />
+        },
+        {
+            path: '/addGroup',
+            element: <Create_G />
         },
         {
             path: '/updatebook',

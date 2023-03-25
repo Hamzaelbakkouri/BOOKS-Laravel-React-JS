@@ -12,6 +12,7 @@ export default function NavBar() {
 
   const logout = () => {
     cookie.remove('authorisation');
+    localStorage.removeItem('info');
   }
 
   if (check) {
@@ -78,7 +79,7 @@ export default function NavBar() {
                   </li>
                   <li>
                     <MDBDropdown>
-                      <MDBDropdownToggle>Profile <i class="fa-solid fa-user"></i></MDBDropdownToggle>
+                      <MDBDropdownToggle>Profile <i className="fa-solid fa-user"></i></MDBDropdownToggle>
                       <MDBDropdownMenu>
                         <MDBDropdownItem href="/profile" link>Your Profile</MDBDropdownItem>
                         <MDBDropdownItem href="/Dashboard" link>Dashboard</MDBDropdownItem>
@@ -151,11 +152,17 @@ export default function NavBar() {
                     <a href="/gallery">Books</a>
                   </li>
                   <li className="text-gray-600 hover:text-blue-600">
-                    <a href="/groups">Join a group</a>
+                  <MDBDropdown>
+                      <MDBDropdownToggle>Groups</MDBDropdownToggle>
+                      <MDBDropdownMenu>
+                        <MDBDropdownItem href="/groups" link>Join a group</MDBDropdownItem>
+                        <MDBDropdownItem href="/usergroups" link>Your Groups</MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
                   </li>
                   <li>
                     <MDBDropdown>
-                      <MDBDropdownToggle>Profile <i class="fa-solid fa-user"></i></MDBDropdownToggle>
+                      <MDBDropdownToggle>Profile <i className="fa-solid fa-user"></i></MDBDropdownToggle>
                       <MDBDropdownMenu>
                         <MDBDropdownItem href="/profile" link>Your Profile</MDBDropdownItem>
                         <MDBDropdownItem href="/" onClick={logout} link>Logout</MDBDropdownItem>

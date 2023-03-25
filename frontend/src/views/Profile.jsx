@@ -24,8 +24,7 @@ const Profile = () => {
             setcheck('Admin');
         }
     }, [])
-    // const [id, setId] = useState();
-
+    
     const Delete = (e) => {
         e.preventDefault();
         axios.delete('http://localhost:8000/api/user/supprimerCompte', {
@@ -35,8 +34,8 @@ const Profile = () => {
         })
             .then((e) => {
                 cookie.remove('authorisation')
-                    window.location.href = "/"
-                
+                window.location.href = "/"
+
             })
     }
 

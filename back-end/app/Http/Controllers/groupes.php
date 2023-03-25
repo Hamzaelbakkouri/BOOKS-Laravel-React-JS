@@ -7,7 +7,7 @@ class groupes extends Controller
 {
     public function getGroups()
     {
-        $groupes = Group::select('groups.id','groups.nom','groups.description','Users.nom AS nom_user','groups.created_at')
+        $groupes = Group::select('groups.id','groups.nom','groups.description','groups.image','Users.nom AS nom_user','groups.created_at')
         ->join('Users', 'Users.id', '=', 'groups.id_user')->get();
         return $groupes;
     }
@@ -17,6 +17,7 @@ class groupes extends Controller
         $groupe = new Group();
         $groupe->nom=$request->nom;
         $groupe->description=$request->description;
+        $groupe->image=$request->image;
         $groupe->id_user=$request->id_user;
         $groupe->save();
         return 'added';

@@ -214,7 +214,7 @@ class Users extends Controller
                 $join->on('groups.id', '=', 'membres.id_group')
                     ->where('membres.id_user', '=', $id);
             })
-            ->select('groups.id', 'groups.nom', 'groups.description', 'groups.created_at', 'users.nom as nom_user', 'membres.id as id_membre')
+            ->select('groups.id', 'groups.nom', 'groups.description','groups.image', 'groups.created_at', 'users.nom as nom_user', 'membres.id as id_membre')
             ->join('users', 'users.id', '=', 'groups.id_user')
             ->get();
     }
