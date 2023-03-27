@@ -14,6 +14,7 @@ import AddBook from './components/AddBook';
 import UpdateBook from './components/UpdateBook';
 import Create_G from './components/Create_G';
 import User_G from './views/User_G';
+import Categorie from './views/Categorie';
 
 
 const router = createBrowserRouter(
@@ -73,18 +74,25 @@ const router = createBrowserRouter(
             path: '/addGroup',
             element: <Create_G />
         },
+        
         {
             path: '/updatebook',
             element: <UpdateBook />
         },
 
         {
-            path: '*',
-            element: <NotFound />
-        },
-        {
             path: '/Books_D',
             element: <Books_D />
+        },
+
+        {
+            path: '/cat_D',
+            element: <Categorie />
+        },
+
+        {
+            path: '*',
+            element: <NotFound />
         },
     ]);
 

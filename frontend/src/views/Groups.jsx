@@ -57,7 +57,6 @@ const Groups = () => {
       <div className='w-full flex justify-evenly flex-wrap gap-10'>
         {data.map((item) => {
           return (
-
             <MDBCard className='w-72 text-black' key={item.id} >
               <MDBCardImage position='top' alt='...' src={item.image} />
               <MDBCardBody>

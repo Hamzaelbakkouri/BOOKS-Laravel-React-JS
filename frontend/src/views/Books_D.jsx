@@ -81,7 +81,7 @@ function Books_D() {
                       <td>
                         <p className='fw-normal mb-1'>
                           <img
-                            src={dat.image}
+                            src={'http://localhost/Hub%20Littéraire/back-end/storage/app/public/' + dat.image}
                             alt=''
                             style={{ width: '45px', height: '45px' }}
                             className='rounded'
@@ -90,7 +90,7 @@ function Books_D() {
                       </td>
                       <td>
                         <MDBBadge light color='success' pill>
-                          {dat.pdf}
+                          <a target="_blank" rel="noopener noreferrer" href={'http://localhost/Hub%20Littéraire/back-end/storage/app/public/' + dat.pdf} > Open Book</a>
                         </MDBBadge>
                       </td>
                       <td>

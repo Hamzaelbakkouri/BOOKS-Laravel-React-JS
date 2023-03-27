@@ -13,8 +13,8 @@ class livres extends Controller
     {
         $livre = new Livre();
         $livre->nom = $request->nom;
-        $livre->image = $request->image;
-        $livre->pdf = $request->file;
+        $livre->image = $request->file('image')->store('uploads', 'public');
+        $livre->pdf = $request->file('file')->store('uploads', 'public');
         $livre->isArchived = 0;
         $livre->id_cat = $request->id_cat;
         $livre->created_at = date("Y-m-d");

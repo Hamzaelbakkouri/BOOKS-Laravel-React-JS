@@ -64,13 +64,14 @@ class Users extends Controller
         return 'deleted';
     }
 
-    public function modifierCompte(Request $request, $id)
+    public function modifierCompte(Request $request)
     {
+        $id = $request->id;
         $user = User::find($id);
-        $user->nom = $request->input('nom');
-        $user->prenom = $request->input('prenom');
-        $user->email = $request->input('email');
-        $user->password = $request->input('password');
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
         $user->save();
         return ['etat' => 'updated'];
     }

@@ -10,7 +10,7 @@ const Create_G = () => {
     const [id_user, setId_u] = useState();
 
     const cookie = new Cookies();
-    
+
     const add = (e) => {
         e.preventDefault();
 
@@ -18,8 +18,8 @@ const Create_G = () => {
         form.append('nom', name);
         form.append('description', desc);
         form.append('id_user', id_user);
-        form.append('image',image);
-        axios.post('http://127.0.0.1:8000/api/groupe/creerUngroupe',form)
+        form.append('image', image);
+        axios.post('http://127.0.0.1:8000/api/groupe/creerUngroupe', form)
             .then(() => {
                 Swal.fire(
                     'Good job!',
@@ -27,14 +27,14 @@ const Create_G = () => {
                     'success'
                 )
                 window.location.href = '/groups';
-        })
+            })
     }
-    
+
     useEffect(() => {
         const data = cookie.get('authorisation');
         setId_u(data.id);
         // console.log(id_user);
-    },[id_user])
+    }, [id_user])
     return (
         <div className=' flex justify-center'>
             <form className="w-full max-w-sm " onSubmit={add}>

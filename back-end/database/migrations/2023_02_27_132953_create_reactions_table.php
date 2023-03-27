@@ -16,13 +16,9 @@ return new class extends Migration
             $table->foreignId('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('id_livre')->references('id')->on('livres')->onDelete('cascade')->onUpdate('cascade');
             $table->Integer('reaction');
-            $table->Integer('note');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('reactions');

@@ -30,8 +30,6 @@ const UpdateBook = () => {
             })
     }, [])
 
-
-
     const update = (e) => {
         e.preventDefault();
 

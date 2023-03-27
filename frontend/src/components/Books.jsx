@@ -1,61 +1,36 @@
-import  React from 'react';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Books() {
+  const [data, setData] = useState([]);
 
-  
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/api/admin/getLivres')
+      .then((res) => {
+        setData(res.data);
+      })
+  }, [])
 
   return (
-    <div className='w-full flex justify-around flex-wrap'>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
-        />
-        <CardMedia
-          component="img"
-          height="194"
-          image="https://ichef.bbci.co.uk/news/999/cpsprodpb/15951/production/_117310488_16.jpg"
-          alt="Paella dish"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-        </CardActions>
-      </Card>
-    </div>
+    <div className='w-full flex justify-evenly flex-wrap gap-5 mt-5'>
+      {data.map((item) => {
+        return (
+          <div class="max-w-sm rounded overflow-hidden shadow-lg">
+            <img class="w-full" src={'http://localhost/Hub%20Littéraire/back-end/storage/app/public/' + item.image} alt="Sunset in the mountains" />
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-2">{item.nom_livre}</div>
+              <p class="text-white text-base">
+                {item.created_at}
+              </p>
+            </div>
+            <div class="px-6 pt-4 pb-2">
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{item.nom_cat}</span>
+            </div>
+            <button className="btn">{!item.id_user ? <i class="fa-solid fa-thumbs-up" style={{ color: '#107be0;' }}></i> : <i class="fa-regular fa-thumbs-up" className='bg-blue-300'></i>}</button>
+            <button className="btn"><i class="fa-regular fa-thumbs-up fa-rotate-180" style={{ color: '#d9d9d9;' }}></i></button>
+          </div>
+        )
+      })}
+    </div >
   );
 }

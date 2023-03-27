@@ -5,6 +5,8 @@ import Cookies from 'universal-cookie';
 const User_G = () => {
     const [user_id, setId] = useState();
     const [datas, setDatas] = useState([]);
+    const [group_id, setGroup_id] = useState('');
+
     useEffect(() => {
         const cooki = new Cookies();
         const cook = cooki.get('authorisation');
@@ -14,6 +16,15 @@ const User_G = () => {
                 setDatas(res.data);
             })
     }, [])
+
+
+    const goChat = (prop) => {
+        setGroup_id(prop);
+        localStorage.setItem('Group', group_id);
+        if (group_id) {
+            window.location.href = '/chat';
+        }
+    }
     return (
         <div className='w-full flex justify-evenly flex-wrap gap-5'>
             {datas.map((item) => {
@@ -31,10 +42,12 @@ const User_G = () => {
                                 Exit Group
                                 <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                             </a>
-                            <a href="#" className=" ml-8 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <button onClick={() => {
+                                goChat(item.id);
+                            }} className=" ml-8 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 Join CHAT
                                 <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 )
